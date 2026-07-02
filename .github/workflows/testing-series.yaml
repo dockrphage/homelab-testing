@@ -1,0 +1,29 @@
+name: homelab-testing-series
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  k6-load-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup kubectl
+      uses: azure/setup-kubectl@v4
+
+    - name: Apply k6 job
+      run: kubectl apply -f gitops/load/k6-job.yaml
+
+  trivy-scan:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Trivy
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y trivy
+    - name: Scan backend image
+      run: trivy image your-backend-image:latest

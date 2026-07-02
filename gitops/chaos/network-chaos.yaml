@@ -1,0 +1,12 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: backend-latency
+  namespace: default
+spec:
+  selector:
+    labelSelectors:
+      app: backend
+  delay:
+    latency: "200ms"
+  duration: "60s"

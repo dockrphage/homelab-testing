@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: trivy-image-scan
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+      - name: trivy
+        image: aquasec/trivy:latest
+        args: ["image", "your-backend-image:latest"]
+      restartPolicy: Never
+  backoffLimit: 0
