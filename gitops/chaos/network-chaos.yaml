@@ -4,6 +4,8 @@ metadata:
   name: backend-latency
   namespace: default
 spec:
+  action: delay
+  mode: all
   selector:
     labelSelectors:
       app: backend
