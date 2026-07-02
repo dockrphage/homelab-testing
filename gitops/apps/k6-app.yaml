@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: k6-load
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/dockrphage/homelab-testing.git
+    targetRevision: main
+    path: gitops/load
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
